@@ -38,11 +38,23 @@ class Launcher {
             let nestedProperty = schema.properties[name];
 
             for(let prop in nestedProperty.properties) {
-                nestedProperty.properties[prop].$id = `#root/${name}/${prop}`
-                nestedProperty.properties[prop].title = '' || prop;
-                nestedProperty.properties[prop].examples = [];
-                nestedProperty.properties[prop].examples.push(obj[name][prop]);
-                //console.log(nestedProperty.properties[prop]);
+                if(nestedProperty.properties[prop].type != 'array') {
+                    nestedProperty.properties[prop].$id = `#root/${name}/${prop}`
+                    nestedProperty.properties[prop].title = '' || prop;
+                    nestedProperty.properties[prop].examples = [];
+                    nestedProperty.properties[prop].examples.push(obj[name][prop]);
+               } else {
+                    const arrayItem = nestedProperty.properties[prop];
+                    for(let item in arrayItem) {
+                        for(let nestedProp in arrayItem[item].properties) {
+                            arrayItem[item].properties[nestedProp].$id = `#root/${name}/${prop}/${nestedProp}`
+                            arrayItem[item].properties[nestedProp].title = '' || prop;
+                            arrayItem[item].properties[nestedProp].examples = [];
+                            const key = obj[name][prop];
+                            arrayItem[item].properties[nestedProp].examples.push(key[0][nestedProp])
+                        }
+                    }
+               }
             }
 
             //console.log(JSON.stringify(schema));
