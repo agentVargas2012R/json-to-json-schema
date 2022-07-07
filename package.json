@@ -1,0 +1,26 @@
+{
+  "name": "json-to-jsonschema",
+  "version": "1.0.0",
+  "description": "Generate JSON Schemas from JSON",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "ts-node ./src/Launcher.ts && npm run format",
+    "format": "npx prettier ./dist --write"
+  },
+  "keywords": [
+    "json",
+    "json-schema"
+  ],
+  "author": "Michael Vargas",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.0.3",
+    "prettier": "^2.7.1",
+    "ts-node": "^10.8.2",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "to-json-schema": "^0.2.5"
+  }
+}
